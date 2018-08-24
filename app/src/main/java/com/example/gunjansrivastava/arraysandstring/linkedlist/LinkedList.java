@@ -23,8 +23,11 @@ public class LinkedList {
         list.deleteAtIndex(2);
         list.deleteAtIndex(3);
         list.reverse();*/
-        list.insertAtIndex(2, new Node(0));
-        list.removeDuplicatesWithoutUsingBuffer();
+        //list.insertAtIndex(2, new Node(0));
+        //list.removeDuplicatesWithoutUsingBuffer();
+
+        //list.printFromKthElement(5);
+        list.deleteMidElement();
         list.printList();
     }
 
@@ -128,18 +131,36 @@ public class LinkedList {
 
     private void removeDuplicatesWithoutUsingBuffer() {
         Node current = head;
-        Node prev = current;
-        Node next = current.next;
+        Node next = current;
         while (current.next != null) {
-            while (next != null) {
-                if (current.data == next.data) {
-                    prev.next = next.next;
-                    next = prev.next;
+            while (next.next != null) {
+                if (current.data == next.next.data) {
+                    next.next = next.next.next;
                 }
-                prev = next;
                 next = next.next;
             }
             current = current.next;
         }
+    }
+
+    private void printFromKthElement(int index) {
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        while (temp != null) {
+            System.out.print(temp.data);
+            temp = temp.next;
+        }
+    }
+
+    private void deleteMidElement() {
+        Node temp = head;
+        for (int i = 0; i < size / 2; i++) {
+            temp = temp.next;
+        }
+        temp.data = temp.next.data;
+        temp.next = temp.next.next;
+        size--;
     }
 }
